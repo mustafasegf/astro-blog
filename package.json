@@ -7,10 +7,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zankhq/astro-starter.git"
+    "url": "https://github.com/mustafasegf/astro-blog.git"
   },
-  "bugs": "https://github.com/zankhq/astro-starter/issues",
-  "homepage": "https://github.com/zankhq/astro-starter",
+  "bugs": "https://github.com/mustafasegf/astro-blog/issues",
+  "homepage": "https://github.com/mustafasegf/astro-blog",
   "files": [
     "*"
   ],
