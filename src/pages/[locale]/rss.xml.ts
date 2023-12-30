@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
-import { SITE_TITLE, SITE_DESCRIPTION, DEFAULT_LOCALE, LOCALES } from "../../consts";
+import { SITE_TITLE, SITE_DESCRIPTION, DEFAULT_LOCALE, LOCALES } from "@src/consts";
 
 /**
  * Generates an array of static paths for all supported locales.

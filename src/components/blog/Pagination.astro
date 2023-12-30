@@ -1,6 +1,6 @@
 ---
 import { Icon } from "astro-icon";
-import translations, { localizePath } from "@utils/t.ts";
+import { localizePath, useLang } from "@utils/t";
 import Link from "@components/Link.astro";
 
 export interface Props {
@@ -12,7 +12,7 @@ export interface Props {
 }
 
 const url = Astro.url;
-const t = translations(url);
+const t = useLang(url);
 
 const { prevUrl, nextUrl, prevText = "blog.prev", nextText = "blog.next", class: className } = Astro.props;
 ---

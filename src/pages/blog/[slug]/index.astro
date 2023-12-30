@@ -2,7 +2,7 @@
 import { type CollectionEntry, getCollection, getEntry } from "astro:content";
 import BlogItem from "@layouts/BlogItem.astro";
 import { getLocale } from "astro-i18n-aut";
-import { DEFAULT_LOCALE } from "../../consts";
+import { DEFAULT_LOCALE } from "@src/consts";
 
 export async function getStaticPaths() {
 	const posts = await getCollection("blog", (entry) => entry.slug.startsWith(DEFAULT_LOCALE + "/"));

@@ -6,8 +6,13 @@ backend:
     name: github
     branch: main
     repo: mustafasegf/astro-blog
+
     site_domain: blog.mus.sh
     base_url: https://blog.mus.sh
+
+    # site_domain: localhost
+    # base_url: http://localhost:4321
+
     auth_endpoint: oauth
     automatic_deployments: true
 
