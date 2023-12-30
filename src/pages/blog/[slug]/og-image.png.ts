@@ -56,6 +56,8 @@ export default async function renderOgImage(title: string, description: string) 
 
 					// opacity: "var(--pattern-opacity, 0.4)",
 					// backgroundColor: "var(--pattern-bg-color, transparent)",
+					// background:
+					// 	"repeating-linear-gradient( 45deg, var(--pattern-color), var(--pattern-color) calc(var(--pattern-size, 40px) * 0.2), var(--pattern-bg-color, transparent) calc(var(--pattern-size, 40px) * 0.2), var(--pattern-bg-color) var(--pattern-size, 40px) )",
 					padding: "80px",
 				},
 			},

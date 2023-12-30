@@ -10,7 +10,7 @@ type Props = CollectionEntry<"blog">["data"];
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props as Props;
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} blog>
 	<script>
 		let copyButtonLabel = "Copy Code";
 		let codeBlocks = Array.from(document.querySelectorAll("pre"));

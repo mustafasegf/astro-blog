@@ -1,7 +1,8 @@
 import type { APIRoute } from "astro";
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
-import { SITE_TITLE, SITE_DESCRIPTION, DEFAULT_LOCALE, LOCALES } from "@src/consts";
+import { DEFAULT_LOCALE, LOCALES } from "@src/consts";
+import { useLang } from "@src/utils/t";
 
 /**
  * Generates an array of static paths for all supported locales.
@@ -18,7 +19,9 @@ export function getStaticPaths() {
  * @param site - An object containing information about the current site.
  * @returns A response object containing the generated RSS feed.
  */
-export const get: APIRoute = async function get({ params, redirect, site }) {
+export const get: APIRoute = async function get({ params, redirect, site, url }) {
+	const t = useLang(url);
+
 	const locale = params.locale;
 
 	if (!locale) {
@@ -42,8 +45,8 @@ export const get: APIRoute = async function get({ params, redirect, site }) {
 	}
 
 	const { body } = await rss({
-		title: SITE_TITLE,
-		description: SITE_DESCRIPTION,
+		title: t("site.title"),
+		description: t("site.description"),
 		site: site!.href,
 		items: posts.map((post) => ({
 			...post.data,

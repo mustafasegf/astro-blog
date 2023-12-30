@@ -3,7 +3,7 @@ import HeaderLink from "@components/Link.astro";
 import LanguageSelector from "@components/LanguageSelector.astro";
 import { localizePath } from "@utils/t.ts";
 import ThemeSelector from "@components/ThemeSelector.astro";
-import { SITE_TITLE, PAGES } from "@src/consts";
+import { PAGES } from "@src/consts";
 import { useLang } from "@utils/t.ts";
 
 
@@ -31,7 +31,7 @@ const url = Astro.url;
 	<div class="p-4 flex flex-row items-center justify-between">
 		<a	href={localizePath("/", url)}
 			class="flex gap-3 items-center text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline">
-			{SITE_TITLE}
+			{t("site.title")}
 		</a>
 		<button class="md:hidden text-gray-500 w-10 h-10 relative focus:outline-none" @click="open = !open">
 			<span class="sr-only">Open main menu</span>

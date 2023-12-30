@@ -8,20 +8,25 @@
 import "@styles/global.css";
 import "@fontsource-variable/inter";
 import { SEO } from "astro-seo";
-import { SITE_TITLE, SITE_DESCRIPTION, TWITTER_CREATOR } from "@src/consts";
 import { getLocale } from "astro-i18n-aut";
+import { useLang } from "@src/utils/t";
 
 interface Props {
 	title: string;
 	description: string;
 	image?: string;
+	blog: boolean;
 }
+
+const t = useLang(Astro.url);
 
 const locale = getLocale(Astro.url);
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const resolvedImageWithDomain = new URL("/meta/opengraph.png", Astro.site).toString();
+const { blog, title = t("site.title"), description = t("site.description"), image = "/blog-placeholder-1.jpg" } = Astro.props;
 
-const { title = SITE_TITLE, description = SITE_DESCRIPTION, image = "/blog-placeholder-1.jpg" } = Astro.props;
+const resolvedImageWithDomain = blog
+	? new URL(`${canonicalURL}og-image.png`, Astro.site).toString()
+	: new URL("/meta/opengraph.png", Astro.site).toString();
 ---
 
 <!-- Global Metadata -->
@@ -48,6 +53,7 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION, image = "/blog-place
 		},
 		image: {
 			alt: title,
+			url: resolvedImageWithDomain,
 		},
 	}}
 	twitter={{
@@ -57,7 +63,7 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION, image = "/blog-place
 		description: description,
 		image: resolvedImageWithDomain,
 		imageAlt: title,
-		creator: TWITTER_CREATOR,
+		// creator: TWITTER_CREATOR,
 	}}
 	extend={{
 		// extending the default link tags

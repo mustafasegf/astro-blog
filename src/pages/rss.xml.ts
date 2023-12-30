@@ -1,7 +1,8 @@
 import type { APIRoute } from "astro";
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
-import { SITE_TITLE, SITE_DESCRIPTION, DEFAULT_LOCALE } from "@src/consts";
+import { DEFAULT_LOCALE } from "@src/consts";
+import { useLang } from "@src/utils/t";
 
 /**
  * defaultLang RSS feed
@@ -9,12 +10,14 @@ import { SITE_TITLE, SITE_DESCRIPTION, DEFAULT_LOCALE } from "@src/consts";
  * @param {Object} site - The site object.
  * @returns {Response} - The response object containing the RSS feed.
  */
-export const get: APIRoute = async function get({ site }) {
+export const get: APIRoute = async function get({ site, url }) {
+	const t = useLang(url);
+
 	const posts = await getCollection("blog", (entry) => entry.slug.startsWith(DEFAULT_LOCALE));
 
 	const { body } = await rss({
-		title: SITE_TITLE,
-		description: SITE_DESCRIPTION,
+		title: t("site.title"),
+		description: t("site.description"),
 		site: site!.href,
 		items: posts.map((post) => ({
 			...post.data,
