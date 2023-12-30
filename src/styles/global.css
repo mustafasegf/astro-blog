@@ -16,5 +16,17 @@ html {
 }
 
 body {
-	@apply m-0 bg-stone-50 p-0 text-stone-800 transition-all duration-300 dark:bg-stone-800 dark:text-stone-50;
+	@apply m-0 bg-gray-50 p-0 text-gray-800 transition-all duration-300 dark:bg-gray-800 dark:text-gray-50;
+}
+
+@media (prefers-color-scheme: dark) {
+  .shiki,
+  .shiki span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    /* Optional, if you also want font styles */
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
 }

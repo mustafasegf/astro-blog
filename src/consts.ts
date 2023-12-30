@@ -3,8 +3,8 @@
 
 // Website metadata
 export const SITE_URL: string = "https://astrostarter.zank.studio";
-export const SITE_TITLE: string = "Astro Blog";
-export const SITE_DESCRIPTION: string = "Welcome to my website!";
+export const SITE_TITLE: string = "Minggu Ini Ngapain";
+export const SITE_DESCRIPTION: string = "Blog pribadi yang berisi catatan harian, tutorial, dan opini.";
 
 // SEO metadata
 export const TWITTER_CREATOR: string = "@xxx";
@@ -16,24 +16,40 @@ type Page = {
 	children?: Page[];
 };
 
-export const PAGES: Page[] = [
+export const PAGES = [
 	{
-		title: "Home",
+		title: "nav.home",
 		href: "/",
+		children: [],
 	},
 	{
-		title: "Blog",
+		title: "nav.blog",
 		href: "/blog",
+		children: [],
 	},
 	{
-		title: "About",
+		title: "nav.about",
 		href: "/about",
+		children: [],
 	},
-];
+] as const;
 
 // i18n
-export const DEFAULT_LOCALE = "en";
+export const DEFAULT_LOCALE = "id";
+
 export const LOCALES = {
-	en: "en", // the `defaultLocale` value must present in `locales` keys
-	it: "it",
+	id: "id 🇮🇩", // the `defaultLocale` value must present in `locales` keys
 };
+
+export const ui = {
+	id: {
+		"nav.home": "Beranda",
+		"nav.blog": "Blog",
+		"nav.about": "Tentang",
+		"nav.title": "Minggu Ini Ngapain",
+		"nav.description": "Blog pribadi yang berisi catatan, tutorial, dan opini.",
+		"home.description":
+			"Blog pribadi yang berisi catatan, tutorial, dan opini. Sering kali lupa minggu ini udah ngapain aja. Jadi kita bloging aja biar inget",
+		"about.description": "Saya Mustafa, mahasiswa universitas indonesia fakultas ilmu komputer. Hobi saya ngoprek linux dan rust",
+	},
+} as const;

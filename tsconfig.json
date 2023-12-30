@@ -12,7 +12,6 @@
 			"@utils/*": ["utils/*"],
 			"@pages/*": ["pages/*"],
 			"@assets/*": ["assets/*"],
-			"@locales/*": ["locales/*"]
 		}
 	}
 }

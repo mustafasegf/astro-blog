@@ -6,13 +6,33 @@ import alpinejs from "@astrojs/alpinejs";
 import { i18n, filterSitemapByDefaultLocale } from "astro-i18n-aut/integration";
 import { DEFAULT_LOCALE, LOCALES, SITE_URL } from "./src/consts";
 import sveltiaCMS from "astro-sveltia-cms";
-import cloudflare from "@astrojs/cloudflare";
-
+import node from "@astrojs/node";
 const defaultLocale = DEFAULT_LOCALE;
 const locales = LOCALES;
 
 // https://astro.build/config
 export default defineConfig({
+	markdown: {
+		shikiConfig: {
+			// Choose from Shiki's built-in themes (or add your own)
+			// https://github.com/shikijs/shiki/blob/main/docs/themes.md
+			theme: "dracula",
+
+			// Alternatively, provide multiple themes
+			// https://shikiji.netlify.app/guide/dual-themes#light-dark-dual-themes
+			// experimentalThemes: {
+			//      dark: "github-dark",
+			// 	light: "github-light",
+			// },
+			// Add custom languages
+			// Note: Shiki has countless langs built-in, including .astro!
+			// https://github.com/shikijs/shiki/blob/main/docs/languages.md
+			langs: [],
+			// Enable word wrap to prevent horizontal scrolling
+			wrap: true,
+		},
+	},
+
 	site: SITE_URL,
 	output: "server",
 	trailingSlash: "always",
@@ -47,5 +67,7 @@ export default defineConfig({
 			exclude: ["pages/api/**/*", "pages/rss.xml.ts", "pages/[locale]/rss.xml.ts"],
 		}),
 	],
-	adapter: cloudflare(),
+	adapter: node({
+		mode: "standalone",
+	}),
 });

@@ -8,6 +8,7 @@ import { getLocale, getLocaleUrlPrefix } from "astro-i18n-aut";
 import Container from "@src/components/Container.astro";
 import HeroImage from "@src/components/blog/HeroImage.astro";
 
+
 const locale = getLocale(Astro.url) ?? DEFAULT_LOCALE;
 const localeUrlPrefix = getLocaleUrlPrefix(Astro.url);
 
@@ -22,7 +23,7 @@ const posts = (await getCollection("blog", (entry) => entry.slug.startsWith(`${l
 ---
 
 <Layout title="Blog">
-	<Container class="pt-16">
+	<Container class="pt-16" >
 		<ul class="m-0 grid list-none grid-cols-2 gap-6 p-0">
 			{
 				posts.map((post: any, index: number) => (

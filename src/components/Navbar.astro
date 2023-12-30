@@ -4,7 +4,10 @@ import LanguageSelector from "@components/LanguageSelector.astro";
 import { localizePath } from "@utils/t.ts";
 import ThemeSelector from "@components/ThemeSelector.astro";
 import { SITE_TITLE, PAGES } from "@src/consts";
+import { useLang } from "@utils/t.ts";
 
+
+const t = useLang(Astro.url);
 const url = Astro.url;
 ---
 
@@ -67,7 +70,7 @@ const url = Astro.url;
 					item.children && item.children.length ? (
 						<div @click.away="open = false" class="relative" x-data="{ open: false }">
 							<button @click="open = !open" style="link"  class="mt-[2px]">
-								Title
+								{t(item.title)}
 								<svg
 									fill="currentColor"
 									viewBox="0 0 20 20"
@@ -91,8 +94,8 @@ const url = Astro.url;
 								class="absolute mt-2 bg-white right-0 w-full origin-top-right rounded-md md:w-48 outline-2 border border-gray-300">
 								<div class="px-2 py-2 rounded-md shadow dark:bg-gray-800">
 									{ item.children.map((subitem) =>
-										<HeaderLink href={item.href}>
-											{item.title}
+										<HeaderLink href={subitem.href}>
+											{t(subitem.title)}
 										</HeaderLink>
 									)}
 								</div>
@@ -100,7 +103,7 @@ const url = Astro.url;
 						</div>
 					) : (
 						<HeaderLink href={item.href}>
-							{item.title}
+							{t(item.title)}
 						</HeaderLink>
 					)
 				)

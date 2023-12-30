@@ -1,13 +1,13 @@
 ---
-import translations from "@utils/t.ts";
+import { useLang } from "@utils/t.ts";
 import Layout from "@layouts/Layout.astro";
 import Container from "@src/components/Container.astro";
 
-const t = translations(Astro.url);
+const t = useLang(Astro.url);
 ---
 
 <Layout title="About Me" description="Lorem ipsum dolor sit amet">
 	<Container class="pt-16">
-		<p set:html={t.about_description} />
+		<span set:html={t("about.description")} />
 	</Container>
 </Layout>
