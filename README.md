@@ -2,7 +2,6 @@
 
 <br />
 
-
 <p align="center">
 <a href="https://stackblitz.com/github/zankhq/astro-starter">
 	<img src="https://developer.stackblitz.com/img/open_in_stackblitz.svg" />
@@ -18,7 +17,6 @@
 </p>
 
 <br />
-
 
 ### Features:
 

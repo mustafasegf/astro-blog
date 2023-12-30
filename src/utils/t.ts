@@ -5,7 +5,6 @@
 import { getLocale } from "astro-i18n-aut";
 import { ui, DEFAULT_LOCALE, LOCALES } from "@src/consts";
 
-
 const handler = {
 	get(target: any, prop: any, receiver: any) {
 		return target[prop].replaceAll("\n", "<br/>");

@@ -18,7 +18,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props as P
 		for (let codeBlock of codeBlocks) {
 			let wrapper = document.createElement("div");
 			wrapper.style.position = "relative";
-      wrapper.style.paddingTop = "1.5rem";
+			wrapper.style.paddingTop = "1.5rem";
 
 			let copyButton = document.createElement("button");
 			copyButton.className = "copy-code";
@@ -27,7 +27,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props as P
 			codeBlock.setAttribute("tabindex", "0");
 			// wrap codebock with relative parent element
 
-      wrapper.appendChild(copyButton);
+			wrapper.appendChild(copyButton);
 			codeBlock.parentNode?.insertBefore(wrapper, codeBlock);
 			wrapper.appendChild(codeBlock);
 
