@@ -7,6 +7,8 @@ import { i18n, filterSitemapByDefaultLocale } from "astro-i18n-aut/integration";
 import { DEFAULT_LOCALE, LOCALES, SITE_URL } from "./src/consts";
 import sveltiaCMS from "astro-sveltia-cms";
 import node from "@astrojs/node";
+import embeds from 'astro-embed/integration';
+
 const defaultLocale = DEFAULT_LOCALE;
 const locales = LOCALES;
 
@@ -46,6 +48,7 @@ export default defineConfig({
     },
   },
   integrations: [
+    embeds(),
     mdx(),
     sitemap({
       i18n: {

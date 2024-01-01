@@ -27,6 +27,8 @@ const { image, blog, title = t("site.title"), description = t("site.description"
 		<BaseHead title={title} description={description} image={image} blog={blog!!} />
 		{/* Comment the line below if you want to remove client side routing */}
 		<ViewTransitions />
+    <!-- TODO: this somehow doesn't load if view transition  -->
+    <script async src="https://platform.twitter.com/widgets.js"></script>
 	</head>
 
 	<body class="min-h-screen">

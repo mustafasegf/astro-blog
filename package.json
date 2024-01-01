@@ -34,6 +34,7 @@
     "@types/alpinejs": "^3.13.5",
     "alpinejs": "^3.13.3",
     "astro": "^4.0.8",
+    "astro-embed": "^0.6.1",
     "astro-i18n-aut": "^0.6.3",
     "astro-sveltia-cms": "^0.1.0",
     "install": "^0.13.0",
