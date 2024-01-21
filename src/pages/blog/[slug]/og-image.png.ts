@@ -51,7 +51,7 @@ export default async function renderOgImage(title: string, description: string) 
           flexDirection: "column",
           justifyContent: "center",
           borderBottom: "20px solid rgb(53, 88, 255)",
-          background: "white",
+          backgroundColor: "white",
           // backgroundImage: `url('data:image/png;base64,${base64Pattern}')`,
           // backgroundRepeat: "repeat",
 
