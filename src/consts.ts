@@ -3,6 +3,7 @@
 
 // Website metadata
 export const SITE_URL: string = import.meta.env.DEV ? "http://localhost:4321" : "https://blog.mus.sh";
+export const TWITTER_HANDLE: string | undefined = import.meta.env.TWITTER_HANDLE || undefined;
 
 // Navigation
 type Page = {
