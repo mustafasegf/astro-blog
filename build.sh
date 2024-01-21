@@ -4,4 +4,4 @@
 pnpm build
 
 # run the project
-pnpm start
+pnpm preview
