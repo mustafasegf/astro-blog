@@ -31,56 +31,73 @@ h6 {
 	line-height: 1.2;
 }
 h1 {
-  @apply text-3xl font-extrabold  md:text-4xl
+	@apply text-3xl font-extrabold  md:text-4xl;
 }
 h2 {
-  @apply text-2xl font-extrabold
+	@apply text-2xl font-extrabold;
 }
 h3 {
-  @apply text-xl font-bold
+	@apply text-xl font-bold;
 }
 h4 {
-  @apply text-xl font-bold
+	@apply text-xl font-bold;
 }
 h5 {
-  @apply text-lg font-bold
+	@apply text-lg font-bold;
 }
 h6 {
-  @apply text-lg font-bold
+	@apply text-lg font-bold;
 }
 strong,
 b {
-  @apply font-bold
+	@apply font-bold;
 }
 blockquote {
-  @apply p-4 my-4 border-s-4 border-gray-300 bg-gray-50 dark:border-gray-500 dark:bg-gray-800
+	@apply my-4 border-s-4 border-gray-300 bg-gray-50 p-4 dark:border-gray-500 dark:bg-gray-800;
 }
 blockquote p {
-  @apply text-lg italic font-medium leading-relaxed text-gray-900 dark:text-white
+	@apply text-lg font-medium italic leading-relaxed text-gray-900 dark:text-white;
 }
 table {
-  @apply w-full text-sm text-left rtl:text-right 
+	@apply w-full text-left text-sm rtl:text-right;
 }
 thread {
-  @apply text-xs uppercase bg-gray-50 dark:bg-gray-600
+	@apply bg-gray-50 text-xs uppercase dark:bg-gray-600;
 }
 tr {
-  @apply bg-white border-b dark:bg-gray-800 dark:border-gray-700
+	@apply border-b bg-white dark:border-gray-700 dark:bg-gray-800;
 }
 th {
-  @apply px-6 py-3
+	@apply px-6 py-3;
 }
 td {
-  @apply px-6 py-4
+	@apply px-6 py-4;
 }
 ul {
-  @apply max-w-md space-y-1 list-disc list-inside
+	@apply max-w-md list-inside list-disc space-y-1;
 }
 ol {
-  @apply max-w-md space-y-1 list-decimal list-inside
+	@apply max-w-md list-inside list-decimal space-y-1;
 }
-ul  ul {
-  @apply ps-5
+ul ul {
+	@apply ps-5;
+}
+#blog-container a {
+	@apply text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500;
+}
+figure img {
+	@apply w-full rounded-lg;
+}
+figure figcaption {
+	@apply mt-2 text-center  text-gray-700 dark:text-gray-300;
+}
+
+astro-embed-tweet {
+	@apply flex flex-col items-center justify-center;
+}
+
+code:not(pre code) {
+	@apply rounded-md bg-gray-100 px-1 py-0.5 font-mono text-sm dark:bg-gray-900;
 }
 
 .sr-only {
