@@ -4,12 +4,13 @@ import BlogItem from "@layouts/BlogItem.astro";
 import { getLocale } from "astro-i18n-aut";
 import { DEFAULT_LOCALE } from "@src/consts";
 
-export async function getStaticPaths() {
-	const posts = await getCollection("blog", (entry) => entry.slug.startsWith(DEFAULT_LOCALE + "/"));
-	return posts.map((post) => ({
-		params: { slug: post.slug.replace(`${DEFAULT_LOCALE}/`, "") },
-	}));
-}
+// export async function getStaticPaths() {
+// 	const posts = await getCollection("blog", (entry) => entry.slug.startsWith(DEFAULT_LOCALE + "/"));
+// 	return posts.map((post) => ({
+// 		params: { slug: post.slug.replace(`${DEFAULT_LOCALE}/`, "") },
+// 	}));
+// }
+
 
 type Props = CollectionEntry<"blog">;
 
@@ -28,7 +29,7 @@ if (!post) {
 }
 const { Content } = await post.render();
 
-export const prerender = true;
+// export const prerender = true;
 ---
 
 <BlogItem {...post.data}>

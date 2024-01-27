@@ -19,16 +19,18 @@ type Props = {
 };
 
 const t = useLang(Astro.url);
+const theme = Astro.cookies.get("real_theme")?.value ?? "light";
+
 const { image, blog, title = t("site.title"), description = t("site.description") } = Astro.props as Props;
 ---
 
-<html lang={locale}>
+<html lang={locale} data-theme={theme}>
 	<head>
 		<BaseHead title={title} description={description} image={image} blog={blog!!} />
 		{/* Comment the line below if you want to remove client side routing */}
 		<ViewTransitions />
-    <!-- TODO: this somehow doesn't load if view transition  -->
-    <script async src="https://platform.twitter.com/widgets.js"></script>
+		<!-- TODO: this somehow doesn't load if view transition  -->
+		<script async src="https://platform.twitter.com/widgets.js"></script>
 	</head>
 
 	<body class="min-h-screen">

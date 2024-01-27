@@ -1,23 +1,63 @@
+<script is:inline>
+	function getCookie(name) {
+		const cookies = document.cookie.split(";");
+		for (let i = 0; i < cookies.length; i++) {
+			const cookie = cookies[i].trim();
+			if (cookie.startsWith(name + "=")) {
+				return cookie.substring(name.length + 1);
+			}
+		}
+		return null;
+	}
+</script>
+
 <select
 	x-data={`{
-				theme: localStorage.theme || 'system',
-				updateDocumentClassTheme: function() {
-					if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-						document.documentElement.classList.add('dark');
-					} else {
-						document.documentElement.classList.remove('dark');
-					}
-				},
-				switchTheme: function (newValue) {
-					if (newValue == 'dark') {
-						localStorage.theme = 'dark';
-					} else if (newValue == 'light') {
-						localStorage.theme = 'light';
-					} else {
-						localStorage.removeItem('theme');
-					}
-					this.updateDocumentClassTheme();
-				},
+        getCookie: function(name) {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.startsWith(name + "=")) {
+              return cookie.substring(name.length + 1);
+            }
+          }
+          return null;
+        },
+        setCookie: function(name, value, days) {
+          const date = new Date();
+          date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+          const expires = "expires=" + date.toUTCString();
+          document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        },
+        theme: getCookie('theme') || 'system',
+
+        updateDocumentClassTheme: function() {
+          let real_theme = 'light';
+          if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            real_theme = 'dark';
+          }
+          if (this.theme === "system") {
+            this.setCookie('theme', 'system', 365);
+            this.setCookie('real_theme', real_theme, 365);
+          } else if (this.theme === "dark") {
+            this.setCookie('theme', 'dark', 365);
+            this.setCookie('real_theme', 'dark', 365);
+          } else if (this.theme === "light") {
+            this.setCookie('theme', 'light', 365);
+            this.setCookie('real_theme', 'light', 365);
+          }
+
+          if (this.theme === 'dark' || (this.theme === "system" && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.querySelector('html').dataset.theme = 'dark'
+          } else {
+            document.querySelector('html').dataset.theme = 'light'
+          }
+        },
+
+        switchTheme: function(newValue) {
+          this.theme = newValue;
+          this.updateDocumentClassTheme();
+        },
 			}`}
 	aria-label="Theme selector"
 	name="theme-selector"
