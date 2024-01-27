@@ -56,8 +56,10 @@ export default defineConfig({
     AutoImport({
       imports: [
         "@components/mdx/ImgCaption.astro",
+        "@components/mdx/Tweet.astro",
+        // "@components/mdx/YouTube.astro",
         {
-          "astro-embed": ["Tweet", "YouTube"],
+          "astro-embed": ["YouTube"],
           "astro:assets": ["Image"],
         },
       ],

@@ -1,0 +1,49 @@
+---
+// take from https://github.com/delucis/astro-embed/blob/18e792114abd4588f29e2d61c5c6d05c30888335/packages/astro-embed-twitter/Tweet.astro
+// License: MIT
+
+export interface Props {
+	id: string;
+}
+const { id } = Astro.props;
+
+const theme = Astro.cookies.get("real_theme").value || "light";
+
+async function fetchTweet(id: string) {
+	try {
+		const oembedUrl = new URL("https://publish.twitter.com/oembed");
+		oembedUrl.searchParams.set("url", id);
+		oembedUrl.searchParams.set("omit_script", "true");
+		oembedUrl.searchParams.set("dnt", "true");
+		oembedUrl.searchParams.set("theme", theme);
+		return (await fetch(oembedUrl).then((res) => res.json())) as {
+			url: string;
+			author_name: string;
+			author_url: string;
+			html: string;
+		};
+	} catch (e) {
+		console.error(
+			`[error]  astro-embed
+         ${e.status} - ${e.statusText}: Failed to fetch tweet ${id}`,
+		);
+	}
+}
+
+const tweet = await fetchTweet(id);
+---
+
+<style>
+	.twitter-tweet:not(.twitter-tweet-rendered) {
+		padding: var(--tc-padding, 1em);
+		border: 1px solid var(--tc-border-color, #cfd9de);
+	}
+	.twitter-tweet:not(.twitter-tweet-rendered) > :first-child {
+		margin-top: 0;
+	}
+	.twitter-tweet:not(.twitter-tweet-rendered) > :last-child {
+		margin-bottom: 0;
+	}
+</style>
+
+{tweet && <astro-embed-tweet set:html={tweet.html} />}
