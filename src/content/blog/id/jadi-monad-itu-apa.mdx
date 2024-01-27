@@ -257,7 +257,7 @@ divCount x = do
   pure count
 ```
 
-## Mengguanakn Monad Dibahasa Lain
+## Menggunakn Monad Di Bahasa Lain
 Monad ini karna framework untuk menyelesaikan masalah, kita bisa bawa konsep ini ke bahasa non pure functional juga seperti golang.
 Di golang, error handling biasanya memerlukan check apakah error itu tidak nil.
 ```go
@@ -315,6 +315,6 @@ func main() {
 
 Kalau merasa lah ini engga idiomatic go!!!. Sayangnya ini pattern yang disaranin oleh Rob Pike, creator golang di artikel [errors are values](https://go.dev/blog/errors-are-values). Cuman bedanya ini contoh nya universal.
 
-Pattern ini pun di adopsi dibahasa lain seperti java, c++, rust yang memili `Option` monad. Rust juga memiliki `Result` monad. Sayangnya dibahasas lain engga ada interface `monad` seperti haskell, jadi tidak bisa komposisi se powerful yang ada di haskell.
+Pattern ini pun di adopsi di bahasa lain seperti java, c++, rust yang memili `Option` monad. Rust juga memiliki `Result` monad. Sayangnya di bahasa lain engga ada interface `monad` seperti haskell, jadi tidak bisa komposisi se powerful yang ada di haskell.
 
 {/* vi: set commentstring={/*%s*\/}: */}
