@@ -7,7 +7,7 @@ export interface Props {
 }
 const { id } = Astro.props;
 
-const theme = Astro.cookies.get("real_theme").value || "light";
+const theme = Astro.cookies.get("real_theme")?.value ?? "light";
 
 async function fetchTweet(id: string) {
 	try {
