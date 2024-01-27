@@ -118,20 +118,20 @@ code:not(pre code) {
 	white-space: nowrap;
 }
 
-.copy-code {
-	position: absolute;
-	top: 0;
-	right: 0;
-	cursor: pointer;
-	border-radius: 0.125rem;
-	--tw-bg-opacity: 1;
-	background-color: rgb(55 48 163 / var(--tw-bg-opacity));
-	padding: 0.25rem 0.5rem;
-	font-size: 0.75rem;
-	line-height: 1rem;
-}
-
-.copy-code:hover {
-	--tw-bg-opacity: 1;
-	background-color: rgb(49 46 129 / var(--tw-bg-opacity));
-}
+/* .copy-code { */
+/* 	position: absolute; */
+/* 	top: 0; */
+/* 	right: 0; */
+/* 	cursor: pointer; */
+/* 	border-radius: 0.125rem; */
+/* 	--tw-bg-opacity: 1; */
+/* 	background-color: rgb(55 48 163 / var(--tw-bg-opacity)); */
+/* 	padding: 0.25rem 0.5rem; */
+/* 	font-size: 0.75rem; */
+/* 	line-height: 1rem; */
+/* } */
+/**/
+/* .copy-code:hover { */
+/* 	--tw-bg-opacity: 1; */
+/* 	background-color: rgb(49 46 129 / var(--tw-bg-opacity)); */
+/* } */

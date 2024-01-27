@@ -49,8 +49,10 @@
 
           if (this.theme === 'dark' || (this.theme === "system" && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.querySelector('html').dataset.theme = 'dark'
+            document.querySelector('html').dataset.code = 'dracula'
           } else {
             document.querySelector('html').dataset.theme = 'light'
+            // document.querySelector('html').dataset.code = 'github-light'
           }
         },
 

@@ -7,8 +7,8 @@ import { i18n, filterSitemapByDefaultLocale } from "astro-i18n-aut/integration";
 import { DEFAULT_LOCALE, LOCALES, SITE_URL } from "./src/consts";
 import sveltiaCMS from "astro-sveltia-cms";
 import node from "@astrojs/node";
-import embeds from 'astro-embed/integration';
-
+import embeds from "astro-embed/integration";
+import expressiveCode from "astro-expressive-code";
 const defaultLocale = DEFAULT_LOCALE;
 const locales = LOCALES;
 
@@ -19,7 +19,6 @@ export default defineConfig({
       // Choose from Shiki's built-in themes (or add your own)
       // https://github.com/shikijs/shiki/blob/main/docs/themes.md
       theme: "dracula",
-
       // Alternatively, provide multiple themes
       // https://shikiji.netlify.app/guide/dual-themes#light-dark-dual-themes
       // experimentalThemes: {
@@ -34,7 +33,6 @@ export default defineConfig({
       wrap: true,
     },
   },
-
   site: SITE_URL,
   output: "server",
   trailingSlash: "always",
@@ -49,6 +47,11 @@ export default defineConfig({
   },
   integrations: [
     embeds(),
+    expressiveCode({
+      themes: ["dracula", "github-light"],
+      useDarkModeMediaQuery: false,
+      themeCssSelector: (theme) => `[data-code='${theme.name}']`,
+    }),
     mdx(),
     sitemap({
       i18n: {

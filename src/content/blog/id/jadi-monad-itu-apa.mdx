@@ -30,7 +30,7 @@ Ilustrasi monad sebagai wrapper itu masuk akal kalau melihat option/maybe monad 
 Gw yang sebelumnya ngoding haskell juga melihat definisi kelas monad ini kayak wrapper. Ada tipe wrapper monad yang isinya tipe apa aja.
 
 ## Definisi Class Monad Di Haskell
-```haskell
+```haskell title="monad.hs"
 class Monad m where
   (>>=)  :: m a -> (  a -> m b) -> m b
   (>>)   :: m a ->  m b         -> m b
@@ -48,7 +48,7 @@ Dalam bahasa pemrograman lain, hal tesebut bisa dengan gampang dilakukan.
 
 ## Contoh Null
 Contoh kalau ingin mengsimulasikan program yang bisa return value kosong, dalam bahasa lain (contoh golang) bisa dilakukan dengan
-```go
+```go title="main.go"
 func getData(x int) *int {
   if x < 0 {
     return nil
@@ -60,7 +60,7 @@ func getData(x int) *int {
 
 disini effect value bisa kosong dimodelkan dengan nil. Isu dari bahasa pure function, type harus secara ekplisit dikasih tau dia itu apa. Jadi dalam haskell kalau ingin memodelkan value bisa kosong kita menggunakan tipe `Maybe`.
 
-```haskell
+```haskell title="maybe.hs"
 data Maybe a = Nothing | Just a
 
 getData x
@@ -79,7 +79,7 @@ case getData 10 of
 
 ## Contoh Error
 Contoh lain misalnya ingin memodelkan suatu error, misalnya di bahasa seperti typescript, bisa menggunakan exception.
-```typescript
+```typescript title="main.ts"
 function canError(x: number): number {
   if(x < 0 ) {
     throw new Error("Number must be positive")
@@ -96,7 +96,7 @@ try {
 
 disini effect fungsi bisa error dimodelkan dengan exception. Dibahawa pure function exception tidak ada dan perlu dimodelkan dengan fungi yang return error nya tersebut. Di haskell bisa dimodelkan dengan `Either`
 
-```haskell
+```haskell title="either.hs"
 data Either a b = Left a | Right b
 
 canError x 
@@ -120,7 +120,7 @@ case canError 1 of
 
 Kalau ingin ada state misalnya ngitung berapa kali fungsi di panggil, bisa lakuin mutasi ke variable.
 
-```java
+```java title="main.java"
 class Something {
   private static int count = 0;
 
@@ -148,7 +148,7 @@ clas Main {
 
 Pada haskell, state harus di return dari function dan dimasukin balik ke function nya. 
 
-```haskell
+```haskell title="state.hs"
 data State s a = s a
 
 divCount :: Int -> State Int Int
@@ -194,7 +194,8 @@ Sekarang gw punya monad yang gw bisa fokus ke inti fungsi yang gw mau.
 
 ## Monad Untul Null
 sekarang kita definisikan monad untuk `Maybe` di haskell.
-```haskell
+
+```haskell title="maybe_monad.hs"
 
 data Maybe a = Nothing | Just a
 
@@ -216,12 +217,13 @@ main = do
   print $ getData 10 `bind` getData `bind` getData -- Just 80
 
 ```
+
 Sekarang dengan monad, effect tersimpan dan kita bisa chaining fungsi tanpa perlu pake guard check. Kita bisa juga mengdefinisikan hal yang sama untuk `Either`.
 Fungsi bind nya sudah melakukan pattern matching yang tadinya perlu dilakukan manual di logic program nya. Ini power dari monad.
 
 ## Monad Untuk State
 
-```haskell
+```haskell title="state_monad.hs"
 newtype State s a = State { runState :: s -> (a, s) }
 
 get :: State s s
@@ -249,7 +251,7 @@ divCount x = bind get $ \count ->
 ```
 dalam kasus ini, haskell punya syntactic sugar untuk monad agar bias lebih fokus ke bind nya.
 
-```haskell
+```haskell title="do_notation.hs"
 divCount x = do
   count <- get
   put (count + 1)
@@ -260,7 +262,8 @@ divCount x = do
 ## Menggunakn Monad Di Bahasa Lain
 Monad ini karna framework untuk menyelesaikan masalah, kita bisa bawa konsep ini ke bahasa non pure functional juga seperti golang.
 Di golang, error handling biasanya memerlukan check apakah error itu tidak nil.
-```go
+
+```go title="main.go"
 value, err := doSomething()
 if err != nil {
   // error handle
@@ -268,7 +271,7 @@ if err != nil {
 ```
 Kita bisa terapkan konsep monad ini kepada erro handling nya.
 
-```go
+```go title="monad.go"
 type Result struct[T] {
   Value T
   Err error

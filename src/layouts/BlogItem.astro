@@ -11,47 +11,6 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props as P
 ---
 
 <Layout title={title} description={description} blog>
-	<script>
-		let copyButtonLabel = "Copy Code";
-		let codeBlocks = Array.from(document.querySelectorAll("pre"));
-
-		for (let codeBlock of codeBlocks) {
-			let wrapper = document.createElement("div");
-			wrapper.style.position = "relative";
-			wrapper.style.paddingTop = "1.5rem";
-
-			let copyButton = document.createElement("button");
-			copyButton.className = "copy-code";
-			copyButton.innerHTML = copyButtonLabel;
-
-			codeBlock.setAttribute("tabindex", "0");
-			// wrap codebock with relative parent element
-
-			wrapper.appendChild(copyButton);
-			codeBlock.parentNode?.insertBefore(wrapper, codeBlock);
-			wrapper.appendChild(codeBlock);
-
-			copyButton.addEventListener("click", async () => {
-				await copyCode(codeBlock, copyButton);
-			});
-		}
-
-		async function copyCode(block: HTMLPreElement, button: HTMLButtonElement) {
-			let code = block.querySelector("code");
-			let text = code?.innerText;
-
-			if (!text) return;
-			await navigator.clipboard.writeText(text);
-
-			// visual feedback that task is completed
-			button.innerText = "Code Copied";
-
-			setTimeout(() => {
-				button.innerText = copyButtonLabel;
-			}, 700);
-		}
-	</script>
-
 	<article class="pt-16">
 		<div class="w-full px-4">
 			{heroImage && <HeroImage class="mx-auto block rounded-lg shadow-md" width={1020} height={510} src={heroImage} alt={title} />}

@@ -20,11 +20,12 @@ type Props = {
 
 const t = useLang(Astro.url);
 const theme = Astro.cookies.get("real_theme")?.value ?? "light";
+const codeTheme = theme === "dark" ? "dracula" : "github-light";
 
 const { image, blog, title = t("site.title"), description = t("site.description") } = Astro.props as Props;
 ---
 
-<html lang={locale} data-theme={theme}>
+<html lang={locale} data-theme={theme} data-code={codeTheme}>
 	<head>
 		<BaseHead title={title} description={description} image={image} blog={blog!!} />
 		{/* Comment the line below if you want to remove client side routing */}
