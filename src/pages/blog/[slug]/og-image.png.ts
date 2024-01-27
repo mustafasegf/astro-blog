@@ -10,6 +10,8 @@ import sharp from "sharp";
 const roboto = fs.readFile("./public/fonts/roboto/Roboto-Regular.ttf");
 const robotoBold = fs.readFile("./public/fonts/roboto/Roboto-Bold.ttf");
 
+export const prerender = true;
+
 export default async function renderOgImage(title: string, description: string) {
   const robotoBoldData = await robotoBold;
   const robotoData = await roboto;

@@ -11,6 +11,7 @@ import embeds from "astro-embed/integration";
 import expressiveCode from "astro-expressive-code";
 const defaultLocale = DEFAULT_LOCALE;
 const locales = LOCALES;
+import AutoImport from "astro-auto-import";
 
 // https://astro.build/config
 export default defineConfig({
@@ -52,6 +53,15 @@ export default defineConfig({
       useDarkModeMediaQuery: false,
       themeCssSelector: (theme) => `[data-code='${theme.name}']`,
     }),
+    AutoImport({
+      imports: [
+        "@components/mdx/ImgCaption.astro",
+        {
+          "astro-embed": ["Tweet", "YouTube"],
+          "astro:assets": ["Image"],
+        },
+      ],
+    }),
     mdx(),
     sitemap({
       i18n: {
@@ -62,7 +72,7 @@ export default defineConfig({
         defaultLocale,
       }),
     }),
-    sveltiaCMS(),
+    sveltiaCMS({}),
     tailwind({
       applyBaseStyles: false,
     }),

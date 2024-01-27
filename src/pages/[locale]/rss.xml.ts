@@ -4,6 +4,8 @@ import { getCollection } from "astro:content";
 import { DEFAULT_LOCALE, LOCALES } from "@src/consts";
 import { useLang } from "@src/utils/t";
 
+export const prerender = true;
+
 /**
  * Generates an array of static paths for all supported locales.
  * @returns An array of objects containing the `params` property for each supported locale.
