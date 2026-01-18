@@ -21,7 +21,7 @@ export function getStaticPaths() {
  * @param site - An object containing information about the current site.
  * @returns A response object containing the generated RSS feed.
  */
-export const get: APIRoute = async function get({ params, redirect, site, url }) {
+export const GET: APIRoute = async function GET({ params, redirect, site, url }) {
 	const t = useLang(url);
 
 	const locale = params.locale;
@@ -52,7 +52,7 @@ export const get: APIRoute = async function get({ params, redirect, site, url })
 		site: site!.href,
 		items: posts.map((post) => ({
 			...post.data,
-			link: `/blog/${post.slug.replace(`${locale}/`, "")}/`,
+			link: `/${post.slug.replace(`${locale}/`, "")}/`,
 		})),
 	});
 

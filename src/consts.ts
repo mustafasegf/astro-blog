@@ -12,23 +12,7 @@ type Page = {
 	children?: Page[];
 };
 
-export const PAGES = [
-	{
-		title: "nav.home",
-		href: "/",
-		children: [],
-	},
-	{
-		title: "nav.blog",
-		href: "/blog",
-		children: [],
-	},
-	{
-		title: "nav.about",
-		href: "/about",
-		children: [],
-	},
-] as const;
+export const PAGES = [] as const;
 
 // i18n
 export const DEFAULT_LOCALE = "id";

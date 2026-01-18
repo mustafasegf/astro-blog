@@ -19,14 +19,32 @@ type Props = {
 };
 
 const t = useLang(Astro.url);
-const theme = Astro.cookies.get("real_theme")?.value ?? "light";
-const codeTheme = theme === "dark" ? "dracula" : "github-light";
 
 const { image, blog, title = t("site.title"), description = t("site.description") } = Astro.props as Props;
 ---
 
-<html lang={locale} data-theme={theme} data-code={codeTheme}>
+<html lang={locale} data-theme="dark" data-code="dracula">
 	<head>
+		<!-- Blocking script to prevent theme flash - runs before page renders -->
+		<script is:inline>
+			(function() {
+				const stored = localStorage.getItem('theme');
+				let theme = 'dark'; // default to dark
+				
+				if (stored === 'light') {
+					theme = 'light';
+				} else if (stored === 'system') {
+					theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+				} else if (stored === 'dark') {
+					theme = 'dark';
+				}
+				// If no stored value, default is dark
+				
+				const codeTheme = theme === 'dark' ? 'dracula' : 'github-light';
+				document.documentElement.dataset.theme = theme;
+				document.documentElement.dataset.code = codeTheme;
+			})();
+		</script>
 		<BaseHead title={title} description={description} image={image} blog={blog!!} />
 		{/* Comment the line below if you want to remove client side routing */}
 		<ViewTransitions />

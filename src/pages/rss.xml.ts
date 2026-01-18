@@ -10,7 +10,7 @@ import { useLang } from "@src/utils/t";
  * @param {Object} site - The site object.
  * @returns {Response} - The response object containing the RSS feed.
  */
-export const get: APIRoute = async function get({ site, url }) {
+export const GET: APIRoute = async function GET({ site, url }) {
 	const t = useLang(url);
 
 	const posts = await getCollection("blog", (entry) => entry.slug.startsWith(DEFAULT_LOCALE));
@@ -21,7 +21,7 @@ export const get: APIRoute = async function get({ site, url }) {
 		site: site!.href,
 		items: posts.map((post) => ({
 			...post.data,
-			link: `/blog/${post.slug.replace(`${DEFAULT_LOCALE}/`, "")}/`,
+			link: `/${post.slug.replace(`${DEFAULT_LOCALE}/`, "")}/`,
 		})),
 	});
 
