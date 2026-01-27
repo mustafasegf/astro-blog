@@ -12,7 +12,23 @@ export const Route = createFileRoute("/")({
     return { posts };
   },
   head: () => ({
-    meta: [{ title: "Minggu Ini Ngapain - Blog" }],
+    meta: [
+      { title: "Minggu Ini Ngapain - Blog" },
+      { name: "description", content: "Blog pribadi yang berisi catatan, tutorial, dan opini." },
+      // Open Graph
+      { property: "og:type", content: "website" },
+      { property: "og:title", content: "Minggu Ini Ngapain" },
+      { property: "og:description", content: "Blog pribadi yang berisi catatan, tutorial, dan opini." },
+      { property: "og:url", content: "https://blog.mus.sh" },
+      { property: "og:image", content: "https://blog.mus.sh/og/home.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      // Twitter Card
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Minggu Ini Ngapain" },
+      { name: "twitter:description", content: "Blog pribadi yang berisi catatan, tutorial, dan opini." },
+      { name: "twitter:image", content: "https://blog.mus.sh/og/home.png" },
+    ],
   }),
 });
 

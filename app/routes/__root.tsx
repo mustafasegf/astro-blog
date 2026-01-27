@@ -31,7 +31,15 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           name="description"
           content="Blog pribadi yang berisi catatan, tutorial, dan opini."
         />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        {/* Open Graph - base tags only, page-specific tags set in route head() */}
+        <meta property="og:locale" content="id" />
+        <meta property="og:site_name" content="Minggu Ini Ngapain" />
+        <meta property="og:logo" content="https://blog.mus.sh/favicon.png" />
+        {/* Favicon */}
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

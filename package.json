@@ -9,9 +9,12 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
+    "build": "vite build && bun run generate-og",
+    "build:no-og": "vite build",
+    "generate-og": "bun scripts/generate-og-images.ts",
     "preview": "vite preview",
-    "start": "node .output/server/index.mjs"
+    "start": "bun .output/server/index.mjs",
+    "deploy": "bun run build && wrangler pages deploy"
   },
   "dependencies": {
     "@mdx-js/mdx": "^3.1.1",
@@ -27,6 +30,7 @@
     "react-dom": "^19.0.0",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
+    "sharp": "^0.34.5",
     "shiki": "^3.21.0",
     "tailwind-merge": "^2.6.0",
     "unist-util-visit": "^5.1.0"
@@ -37,9 +41,11 @@
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.6.0",
+    "playwright": "^1.58.0",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.7.2",
     "vite": "^7.3.1",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^5.1.4",
+    "wrangler": "^4.61.0"
   }
 }
