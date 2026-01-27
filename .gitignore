@@ -1,7 +1,9 @@
 # build output
 dist/
+.output/
+
 # generated types
-.astro/
+.vinxi/
 
 # dependencies
 node_modules/
@@ -12,19 +14,26 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-
 # environment variables
 .env
 .env.production
+.env.local
 
 # macOS-specific files
 .DS_Store
 
-# Language directories to ignore
-astro_tmp_pages_*
-
 # Local Netlify folder
 .netlify
 
-# Service Worker
-dev-dist/
+# TanStack Router generated files
+app/routeTree.gen.ts
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vscode/*
+!.vscode/extensions.json

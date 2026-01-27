@@ -1,0 +1,322 @@
+---
+title: Jadi Monad Itu Apa
+description: Banyak orang engga paham monad itu apa, jadi mari kita bahas sebenernya monad itu apa.
+pubDate: Jan 23 2024
+heroImage: /images/blog/jadi-monad-itu-apa/monad.png
+---
+
+Menikmati waktu gabut dengan buka twitter dan melihat posting yang menarik lagi minggu ini. Dapet Postingan soal resource belajar monad yang bagus.
+
+<Tweet id="https://twitter.com/welltypedwitch/status/1741986092889313789" />
+
+Sebagai orang yang suka functional programming gw pun tertarik baca resource tersebut. Gw pun coba cari papernya dan dapet link [Monads for functional programming](https://homepages.inf.ed.ac.uk/wadler/papers/marktoberdorf/baastad.pdf). Dari abstrak paper nya udah bikin gw mikir lagi apa itu monad.
+
+> **Abstract.** The use of monads to structure functional programs is described. Monads provide a convenient framework for simulating effects
+> found in other languages, such as global state, exception handling, output, or non-determinism. Three case studies are looked at in detail: how
+> monads ease the modification of a simple evaluator; how monads act as
+> the basis of a datatype of arrays subject to in-place update; and how
+> monads can be used to build parsers
+
+Bagian _"Monads provide a convenient framework for simulating effects found in other languages, such as global state, exception handling, output, or non-determinism."_
+sangat mengubah pemikiran. Selama ini selalu mikir kalau monad itu ya suatu box/container/wrapper type. Pertama belajar monad dapat ilustrasi seperti ini.
+
+<ImgCaption
+  src="https://miro.medium.com/v2/resize:fit:1400/0*uh4tBSWjidlCTdhJ"
+  caption="Monad sebagai wrapper. Sumber https://www.continuum.be/en/blog/a-gentle-introduction-to-monads/"
+  alt="monad sebagai wrapper"
+/>
+
+Ilustrasi monad sebagai wrapper itu masuk akal kalau melihat option/maybe monad dan result/either monad. Tipe tersebut bisa di representasiin dengan wrapper. Kita punya suatu wrapper, isinya bisa ada isi (Some) atau engga ada (None).
+Gw yang sebelumnya ngoding haskell juga melihat definisi kelas monad ini kayak wrapper. Ada tipe wrapper monad yang isinya tipe apa aja.
+
+## Definisi Class Monad Di Haskell
+
+```haskell title="monad.hs"
+class Monad m where
+  (>>=)  :: m a -> (  a -> m b) -> m b
+  (>>)   :: m a ->  m b         -> m b
+  return ::   a                 -> m a
+```
+
+Dari sini keliatannya kayak `m` itu wrapper untuk `a`. Tipe monad ini nerima bind `>>=` yang menerima tipe `a` jadi `m b`.
+Jadi terlihat seperti a itu yang tipe unwrapped nya dan `m b` itu tipe wrapper baru.
+Terilihat juga ada tipe return yang nerima tipe `a` saja trus nampak seperti di wrap menjadi `m a`.
+
+Tapi kalau kita lihat balik ke abstract nya dari paper wadler, monad itu ada sebagai framework untuk mengsimulasikan effects di bahasa pemrograman lain.
+Effect disini mengdefinisikan suatu hal yang terjadi yang bukan dari intensi awal dari fungsi.
+Contoh nya memanggil fungsi bisa tidak memiliki data (Option), bisa error (Result), ada delay (Future), update global variable (State).
+Dalam bahasa pemrograman lain, hal tesebut bisa dengan gampang dilakukan.
+
+## Contoh Null
+
+Contoh kalau ingin mengsimulasikan program yang bisa return value kosong, dalam bahasa lain (contoh golang) bisa dilakukan dengan
+
+```go title="main.go"
+func getData(x int) *int {
+  if x < 0 {
+    return nil
+  }
+  data := x * 2
+  return &data
+}
+```
+
+disini effect value bisa kosong dimodelkan dengan nil. Isu dari bahasa pure function, type harus secara ekplisit dikasih tau dia itu apa. Jadi dalam haskell kalau ingin memodelkan value bisa kosong kita menggunakan tipe `Maybe`.
+
+```haskell title="maybe.hs"
+data Maybe a = Nothing | Just a
+
+getData x
+  | x <= 0 = Nothing
+  | otherwise = Just x*2
+```
+
+Tipe data `Maybe` secara ekplisit punya tipe Nothing yang memodelkan value kosong.
+Issue dari tipe `Maybe` ini, jika fungsi ingin di chaining dengan fungsi lain yang membutuhkan data, kita perlu melakukan logic dulu kalau data ada apa engga. Misalnya pengen chaining getData, maka perlu ada pattern matching.
+
+```haskell
+case getData 10 of
+    Nothing -> Nothing
+    Just x -> getData x
+```
+
+## Contoh Error
+
+Contoh lain misalnya ingin memodelkan suatu error, misalnya di bahasa seperti typescript, bisa menggunakan exception.
+
+```typescript title="main.ts"
+function canError(x: number): number {
+  if (x < 0) {
+    throw new Error("Number must be positive");
+  }
+  return x * 2;
+}
+
+try {
+  console.log(canError(1));
+} catch (err) {
+  console.log(err.message);
+}
+```
+
+disini effect fungsi bisa error dimodelkan dengan exception. Dibahawa pure function exception tidak ada dan perlu dimodelkan dengan fungi yang return error nya tersebut. Di haskell bisa dimodelkan dengan `Either`
+
+```haskell title="either.hs"
+data Either a b = Left a | Right b
+
+canError x
+  | x < 0 = Left "Number must be postive"
+  | otherwise = Right x * 2
+
+show $ canError 1
+```
+
+Kita sekarang juga harus secara ekplisit menghandler error kalo ingin chaining.
+
+```haskell
+case canError 1 of
+  Left x -> show x
+  Right x -> case canError x of
+    Left x -> show x
+    Right x -> x
+```
+
+## Contoh State
+
+Kalau ingin ada state misalnya ngitung berapa kali fungsi di panggil, bisa lakuin mutasi ke variable.
+
+```java title="main.java"
+class Something {
+  private static int count = 0;
+
+  static int divCount(int x) {
+    if (x <= 0) {
+      return 0;
+    }
+    count++;
+
+    return divCount(x/2);
+  }
+
+  static int getCount() {
+    return count;
+  }
+}
+
+clas Main {
+  void main() {
+    Something.divCount(10);
+    System.out.println(Something.getCount());
+  }
+}
+```
+
+Pada haskell, state harus di return dari function dan dimasukin balik ke function nya.
+
+```haskell title="state.hs"
+data State s a = s a
+
+divCount :: Int -> State Int Int
+divCount x = state $ \s -> divCountHelper x s
+  where
+    -- kode asli div nya
+    divCountHelper :: Int -> Int -> (Int, Int)
+    divCountHelper n count
+      | n <= 0    = (0, count)
+      | otherwise = divCountHelper (n `div` 2) (count + 1)
+
+```
+
+Disini keliatan kalo state nya jadinya harus di masukin ke logic functionnya. Padahal main functionality dari programnya engga peduli soal state.
+
+Dari semua solving di haskell, ada pain tidak bisa fokus ke happy path. Monad ada untuk memodelkan effect yang terjadi pada program.
+Jadi effect di simpan pada monad nya dan fungsi bisa menjalankan fungsi utamanya tanpa peduli ada efek apa.
+
+## Introducing Monad
+
+Gimana kalo kita bikin sebuah class yang bisa memodelkan effect dan kita bisa fokus ke fungsi inti programnya.
+jadi pengennya ada fungsi yang `a -> b + effect`.
+
+Nah sekarang gimana kalo kita namakan `b + effect` sebagai `M b`. Jadinya fungsinya `a -> M b`
+
+Selain fungsi yang bisa return `effect`, gw mau juga secara gampang extract `b` dari effect.  
+Untuk extract enakya bisa nerima fungsi `a -> M b` lagi biar bisa chaining.  
+Jadi perlu juga fungsi `(M a, a -> M b) -> M b`. Fungsi yang nerima `M a` dan `a -> M b` dan return `M b`.
+
+Kalau dilihat, tipe input dari `a -> M b` itu beda denan `M a`. Tetapi dengan ada helper `(M a, a -> M b) -> M b`, gw bisa dengan gampang dapet `M b` kalau punya `M a`.  
+Fungsi helper ini akan gw namain bind. Bind ini yang bisa dibilang hal magical dari monad. Kita bisa ubah `M a` jadi `M b` tanpa fungsi mapper nya tau ada `M a`.
+
+Seakrang gw juga perlu fungsi untuk ubah dari bentuk `a` jadi `M a`. Jadinya kalo gw punya `a` mau di ubah jadi `M a` biar bisa panggil fungsi bind nya. Nama fungsi ini pure.
+Sekarang gw punya monad yang gw bisa fokus ke inti fungsi yang gw mau.
+
+## Monad Untul Null
+
+sekarang kita definisikan monad untuk `Maybe` di haskell.
+
+```haskell title="maybe_monad.hs"
+
+data Maybe a = Nothing | Just a
+
+pure :: a -> Maybe a
+pure x  = Just x
+
+bind :: Maybe a -> (a -> Maybe b) -> Maybe b
+bind m g = case m of
+  Nothing -> Nothing
+  Just x  -> g x
+
+getData x
+  | x <= 0 = Nothing
+  | otherwise = Just x*2
+
+main :: IO ()
+main = do
+  print $ getData 0 `bind` getData `bind` getData -- Nothing
+  print $ getData 10 `bind` getData `bind` getData -- Just 80
+
+```
+
+Sekarang dengan monad, effect tersimpan dan kita bisa chaining fungsi tanpa perlu pake guard check. Kita bisa juga mengdefinisikan hal yang sama untuk `Either`.
+Fungsi bind nya sudah melakukan pattern matching yang tadinya perlu dilakukan manual di logic program nya. Ini power dari monad.
+
+## Monad Untuk State
+
+```haskell title="state_monad.hs"
+newtype State s a = State { runState :: s -> (a, s) }
+
+get :: State s s
+get s = (s,s)
+
+put :: s -> State s ()
+put x s = ((),x)
+
+pure :: a -> State s a
+pure a = State $ \s -> (a, s)
+
+bind :: State s a -> (a -> State s b) -> State s b
+bind (State f) g = State $ \s ->
+  let (a, newState) = f s
+  in runState (g a) newState
+
+divCount :: Int -> State Int Int
+divCount 0 = pure 0
+
+divCount x = bind get $ \count ->
+             bind (put (count + 1)) $ \_ ->
+             bind (divCount (x `div` 2)) $ \_ ->
+             pure count
+
+```
+
+dalam kasus ini, haskell punya syntactic sugar untuk monad agar bias lebih fokus ke bind nya.
+
+```haskell title="do_notation.hs"
+divCount x = do
+  count <- get
+  put (count + 1)
+  divCount (x `div` 2)
+  pure count
+```
+
+## Menggunakn Monad Di Bahasa Lain
+
+Monad ini karna framework untuk menyelesaikan masalah, kita bisa bawa konsep ini ke bahasa non pure functional juga seperti golang.
+Di golang, error handling biasanya memerlukan check apakah error itu tidak nil.
+
+```go title="main.go"
+value, err := doSomething()
+if err != nil {
+  // error handle
+}
+```
+
+Kita bisa terapkan konsep monad ini kepada erro handling nya.
+
+```go title="monad.go"
+type Result struct[T] {
+  Value T
+  Err error
+}
+
+func Ok[T any](value T) Result[T] {
+	return Result[T]{
+		value: value,
+	}
+}
+
+func Err[T any](err error) Result[T] {
+	return Result[T]{
+		err:   err,
+	}
+}
+
+func TupleToResult[T any](value T, err error) Result[T] {
+	if err != nil {
+		return Err[T](err)
+	}
+	return Ok(value)
+}
+
+func (r Result[T]) Bind(mapper func(value T) Result[T]) Result[T] {
+	if r.err != nil {
+		return mapper(r.value)
+	}
+
+	return Err[T](r.err)
+}
+
+func main() {
+  result := TupleToResult(doSomething()).
+    Bind(DoOtherThing)
+
+  if result.Err != nil {
+    // error handle
+  }
+
+  value = result.Value
+}
+```
+
+Kalau merasa lah ini engga idiomatic go!!!. Sayangnya ini pattern yang disaranin oleh Rob Pike, creator golang di artikel [errors are values](https://go.dev/blog/errors-are-values). Cuman bedanya ini contoh nya universal.
+
+Pattern ini pun di adopsi di bahasa lain seperti java, c++, rust yang memili `Option` monad. Rust juga memiliki `Result` monad. Sayangnya di bahasa lain engga ada interface `monad` seperti haskell, jadi tidak bisa komposisi se powerful yang ada di haskell.

@@ -1,0 +1,481 @@
+/*
+  Global styles for TanStack Start blog
+ */
+
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+* {
+  @apply box-border;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  @apply m-0 bg-gray-50 p-0 text-gray-800 transition-all duration-300 dark:bg-gray-800 dark:text-gray-50;
+}
+
+/* Typography - Base */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+}
+
+strong,
+b {
+  @apply font-bold;
+}
+
+/* Blog content container - prose-like styling */
+.blog-content {
+  @apply text-gray-800 dark:text-gray-200;
+  line-height: 1.75;
+}
+
+.blog-content h1 {
+  @apply text-3xl font-extrabold md:text-4xl mt-8 mb-4 text-gray-900 dark:text-white;
+}
+
+.blog-content h2 {
+  @apply text-2xl font-extrabold mt-8 mb-4 text-gray-900 dark:text-white;
+}
+
+.blog-content h3 {
+  @apply text-xl font-bold mt-6 mb-3 text-gray-900 dark:text-white;
+}
+
+.blog-content h4 {
+  @apply text-lg font-bold mt-6 mb-3 text-gray-900 dark:text-white;
+}
+
+.blog-content p {
+  @apply my-4;
+}
+
+.blog-content a {
+  @apply text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 underline;
+}
+
+.blog-content blockquote {
+  @apply my-6 border-s-4 border-gray-300 bg-gray-50 p-4 dark:border-gray-500 dark:bg-gray-900/50;
+}
+
+.blog-content blockquote p {
+  @apply text-base font-normal italic leading-relaxed text-gray-700 dark:text-gray-300 my-0;
+}
+
+.blog-content ul {
+  @apply my-4 list-disc pl-6 space-y-2;
+}
+
+.blog-content ol {
+  @apply my-4 list-decimal pl-6 space-y-2;
+}
+
+.blog-content li {
+  @apply text-gray-800 dark:text-gray-200;
+}
+
+.blog-content ul ul,
+.blog-content ol ol,
+.blog-content ul ol,
+.blog-content ol ul {
+  @apply my-2 pl-6;
+}
+
+.blog-content hr {
+  @apply my-8 border-gray-200 dark:border-gray-700;
+}
+
+.blog-content figure {
+  @apply my-6;
+}
+
+.blog-content figure img {
+  @apply w-full rounded-lg;
+}
+
+.blog-content figure figcaption {
+  @apply mt-2 text-center text-sm text-gray-600 dark:text-gray-400;
+}
+
+.blog-content img:not(figure img) {
+  @apply my-4 rounded-lg;
+}
+
+/* Inline code */
+.blog-content code:not(pre code) {
+  @apply rounded bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 font-mono text-sm text-gray-800 dark:text-gray-200;
+}
+
+/* Table styling */
+.blog-content table {
+  @apply w-full text-left text-sm my-6;
+}
+
+.blog-content thead {
+  @apply bg-gray-100 dark:bg-gray-700 text-xs uppercase;
+}
+
+.blog-content tr {
+  @apply border-b border-gray-200 dark:border-gray-700;
+}
+
+.blog-content th {
+  @apply px-4 py-3 font-semibold;
+}
+
+.blog-content td {
+  @apply px-4 py-3;
+}
+
+/* Details/Summary */
+.blog-content details {
+  @apply my-4 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden;
+}
+
+.blog-content summary {
+  @apply cursor-pointer p-4 font-medium bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700;
+}
+
+.blog-content details[open] summary {
+  @apply border-b border-gray-200 dark:border-gray-700;
+}
+
+.blog-content details > *:not(summary) {
+  @apply px-4;
+}
+
+/* Code Frame - Expressive Code Style */
+.blog-content .code-frame {
+  @apply my-6 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700;
+  background: var(--shiki-light-bg, #fff);
+}
+
+[data-theme="dark"] .blog-content .code-frame {
+  background: var(--shiki-dark-bg, #282a36);
+}
+
+/* Code Header */
+.blog-content .code-header {
+  @apply flex items-center gap-2 px-4 py-2 text-sm;
+  background: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .blog-content .code-header {
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Window Buttons (Traffic Lights) */
+.blog-content .window-buttons {
+  @apply flex gap-1.5;
+}
+
+.blog-content .window-buttons .dot {
+  @apply w-3 h-3 rounded-full;
+}
+
+.blog-content .window-buttons .dot.red {
+  background-color: #ff5f56;
+}
+
+.blog-content .window-buttons .dot.yellow {
+  background-color: #ffbd2e;
+}
+
+.blog-content .window-buttons .dot.green {
+  background-color: #27c93f;
+}
+
+/* Code Title */
+.blog-content .code-title {
+  @apply text-xs font-medium text-gray-600 dark:text-gray-400 ml-2;
+}
+
+/* Language Badge */
+.blog-content .code-language {
+  @apply text-xs font-mono text-gray-500 dark:text-gray-400 ml-auto;
+}
+
+/* Code Content Wrapper */
+.blog-content .code-content {
+  @apply relative;
+}
+
+/* Pre inside frame */
+.blog-content .code-frame pre.shiki {
+  @apply overflow-x-auto p-4 text-sm m-0 rounded-none border-0;
+  background: transparent !important;
+}
+
+.blog-content .code-frame pre.shiki code {
+  @apply font-mono text-sm;
+  background: transparent !important;
+}
+
+.blog-content .code-frame pre.shiki .line {
+  @apply block;
+}
+
+/* Light theme - github-light */
+[data-theme="light"] .blog-content .code-frame pre.shiki,
+[data-theme="light"] .blog-content .code-frame pre.shiki span {
+  color: var(--shiki-light) !important;
+}
+
+/* Dark theme - dracula */
+[data-theme="dark"] .blog-content .code-frame pre.shiki,
+[data-theme="dark"] .blog-content .code-frame pre.shiki span {
+  color: var(--shiki-dark) !important;
+}
+
+/* Copy Button */
+.blog-content .copy-button {
+  @apply absolute top-2 right-2 flex items-center gap-1 px-2 py-1 text-xs rounded;
+  @apply bg-gray-200/80 dark:bg-gray-700/80 text-gray-700 dark:text-gray-300;
+  @apply hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors;
+  @apply opacity-0 cursor-pointer border-0;
+}
+
+.blog-content .code-content:hover .copy-button {
+  @apply opacity-100;
+}
+
+.blog-content .copy-button .copy-icon {
+  @apply w-3.5 h-3.5 inline-block;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+[data-theme="dark"] .blog-content .copy-button .copy-icon {
+  filter: invert(1);
+}
+
+.blog-content .copy-button.copied {
+  @apply bg-green-200 dark:bg-green-800 text-green-800 dark:text-green-200;
+}
+
+.blog-content .copy-button.copied .copy-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2322c55e'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 13l4 4L19 7'/%3E%3C/svg%3E");
+}
+
+/* Terminal frame specific styles */
+.blog-content .code-frame.is-terminal {
+  @apply bg-gray-900;
+}
+
+.blog-content .code-frame.is-terminal .code-header {
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.blog-content .code-frame.is-terminal .code-title {
+  @apply text-gray-400;
+}
+
+[data-theme="light"] .blog-content .code-frame.is-terminal pre.shiki,
+[data-theme="light"] .blog-content .code-frame.is-terminal pre.shiki span,
+[data-theme="dark"] .blog-content .code-frame.is-terminal pre.shiki,
+[data-theme="dark"] .blog-content .code-frame.is-terminal pre.shiki span {
+  color: var(--shiki-dark) !important;
+}
+
+/* Fallback for pre without frame (shouldn't happen, but just in case) */
+.blog-content pre.shiki:not(.code-frame pre) {
+  @apply overflow-x-auto rounded-lg p-4 my-6 text-sm border border-gray-200 dark:border-gray-700;
+}
+
+.blog-content pre:not(.shiki) {
+  @apply overflow-x-auto rounded-lg p-4 my-6 text-sm bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700;
+}
+
+.blog-content pre:not(.shiki) code {
+  @apply font-mono;
+}
+
+/* Screen reader only */
+.sr-only {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Inter font */
+@font-face {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiJ-Ek-_0ew.woff2")
+    format("woff2");
+}
+
+/* Global non-blog styles */
+h1 {
+  @apply text-3xl font-extrabold md:text-4xl;
+}
+
+h2 {
+  @apply text-2xl font-extrabold;
+}
+
+h3 {
+  @apply text-xl font-bold;
+}
+
+h4 {
+  @apply text-xl font-bold;
+}
+
+h5 {
+  @apply text-lg font-bold;
+}
+
+h6 {
+  @apply text-lg font-bold;
+}
+
+/* View Transitions */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: fade-out 0.2s ease-out;
+}
+
+::view-transition-new(root) {
+  animation: fade-in 0.2s ease-in;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Blog card transitions - slide up effect */
+::view-transition-old(blog-card) {
+  animation: slide-out 0.3s ease-out;
+}
+
+::view-transition-new(blog-card) {
+  animation: slide-in 0.3s ease-in;
+}
+
+@keyframes slide-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Live2D Widget - position on right side */
+#waifu {
+  position: fixed !important;
+  bottom: -500px !important;
+  right: 0 !important;
+  left: auto !important;
+  z-index: 1000 !important;
+  pointer-events: none;
+  transition: bottom 0.3s ease-in-out !important;
+}
+
+#waifu.waifu-active {
+  bottom: 27px !important;
+}
+
+#waifu-canvas {
+  pointer-events: auto;
+}
+
+#waifu #live2d {
+  pointer-events: auto;
+}
+
+#waifu-toggle {
+  position: fixed !important;
+  bottom: 66px !important;
+  right: 0 !important;
+  left: auto !important;
+  margin-left: 0 !important;
+  margin-right: -100px !important;
+  transition: margin-right 1s !important;
+  justify-content: flex-start !important;
+}
+
+#waifu-toggle.waifu-toggle-active {
+  margin-right: -50px !important;
+}
+
+#waifu-toggle.waifu-toggle-active:hover {
+  margin-right: -30px !important;
+}
+
+#waifu-tips,
+#waifu-tool {
+  display: none !important;
+}
+
+/* Smaller on mobile */
+@media (max-width: 768px) {
+  #waifu.waifu-active {
+    bottom: 0 !important;
+  }
+
+  #waifu {
+    transform: scale(0.35) !important;
+    transform-origin: bottom center !important;
+    right: -100px !important;
+  }
+
+  #waifu-toggle {
+    bottom: 40px !important;
+  }
+}

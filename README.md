@@ -1,96 +1,118 @@
-<h1 align="center"> Astro Starter Kit</h1>
+# Minggu Ini Ngapain - Blog
 
-<br />
+A personal blog built with **TanStack Start** in **SPA mode** - a modern, type-safe full-stack React framework.
 
-<p align="center">
-<a href="https://stackblitz.com/github/zankhq/astro-starter">
-	<img src="https://developer.stackblitz.com/img/open_in_stackblitz.svg" />
-</a>
-&nbsp;&nbsp;
-<a href="https://codesandbox.io/p/sandbox/github/zankhq/astro-starter">
-	<img src="https://assets.codesandbox.io/github/button-edit-lime.svg" />
-</a>
-&nbsp;&nbsp;
-<a href="https://codespaces.new/zankhq/astro-starter?devcontainer_path=.devcontainer/blog/devcontainer.json">
-	<img src="https://github.com/codespaces/badge.svg" />
-</a>
-</p>
+## Features
 
-<br />
+- **TanStack Router** - Type-safe routing with automatic code splitting
+- **TanStack Start SPA Mode** - Static site generation for optimal performance
+- **Tailwind CSS** - Utility-first CSS framework
+- **Dark/Light Theme** - System-aware theme switching with persistence
+- **i18n Ready** - Internationalization support (Indonesian default)
+- **Responsive Design** - Mobile-first approach
 
-### Features:
+## Tech Stack
 
--   ✅ Tailwind CSS
--   ✅ Alpine js
--   ✅ Typescript
--   ✅ Localization (with astro-i18n-aut)
--   ✅ Dark/light mode
--   ✅ Blog
--   ✅ Discussions (thanks to giscus)
--   ✅ CMS for editing blog post (thanks to Sveltia CMS)
--   ✅ Sitemap (localized)
--   ✅ RSS (localized)
--   ✅ PWA
+- [TanStack Start](https://tanstack.com/start) - Full-stack React framework
+- [TanStack Router](https://tanstack.com/router) - Type-safe router
+- [Tailwind CSS](https://tailwindcss.com) - Utility-first CSS
+- [Lucide React](https://lucide.dev) - Beautiful icons
+- [TypeScript](https://www.typescriptlang.org) - Type safety
 
-### 🧞 Commands
+## Getting Started
 
-All commands are run from the root of the project, from a terminal:
+### Prerequisites
 
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `pnpm install`         | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+- Node.js 18+
+- pnpm (recommended) or npm
 
-If you want to switch to npm make sure to remove pnpm-lock.yaml and node_modules folder and then run `npm install`
+### Installation
 
-### 🚀 Project Structure
+```bash
+# Install dependencies
+pnpm install
 
-Inside of your Astro project, you'll see the following folders and files:
+# Start development server
+pnpm dev
+
+# Build for production
+pnpm build
+
+# Preview production build
+pnpm preview
+```
+
+## Project Structure
 
 ```
-├── public/
-├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   ├── locales/
-│   ├── middleware/
-│   ├── pages/
-│   ├── styles/
-│   ├── utils/
-│   └── consts.ts/
-├── astro.config.mjs
-├── README.md
+.
+├── app/
+│   ├── components/     # Reusable React components
+│   │   ├── Container.tsx
+│   │   ├── Footer.tsx
+│   │   ├── Navbar.tsx
+│   │   └── ThemeSelector.tsx
+│   ├── lib/            # Utilities and constants
+│   │   ├── blog.ts
+│   │   ├── consts.ts
+│   │   └── i18n.ts
+│   ├── routes/         # TanStack Router routes
+│   │   ├── __root.tsx
+│   │   ├── $.tsx       # 404 catch-all
+│   │   ├── blog.$slug.tsx
+│   │   └── index.tsx
+│   ├── styles/
+│   │   └── global.css
+│   ├── client.tsx      # Client entry point
+│   ├── router.tsx      # Router configuration
+│   └── ssr.tsx         # SSR entry point
+├── public/             # Static assets
+│   └── images/
+├── app.config.ts       # TanStack Start config
 ├── package.json
-├── .prettierrc
-├── tailwind.config.cjs
 └── tsconfig.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## SPA Mode
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+This project uses TanStack Start in SPA (Single Page Application) mode, which means:
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+- **Static Generation** - Pages are pre-rendered at build time
+- **Client-Side Navigation** - Fast navigation without full page reloads
+- **No Server Required** - Can be deployed to any static hosting
+- **SEO Friendly** - Initial HTML is rendered for search engines
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Configuration
 
-### ✍️ Admin dashboard
+The SPA mode is configured in `app.config.ts`:
 
-You can access the admin dashboard for editing blog post at `/admin` (https://example.com/admin)
+```ts
+import { defineConfig } from "@tanstack/react-start/config";
 
-Sveltia cms uses the same configuration as Decap cms, so you can follow the documentation at https://decapcms.org/docs.
+export default defineConfig({
+  server: {
+    preset: "static",
+  },
+});
+```
 
-In order to access the admin dashboard to change blog articles content you need to have access to the github repo, a quick way to test it test would be fork the repo and than configure sveltia cms accordingly to your cloud provider (netlify, cloudflare, vercel, etc...).
+## Deployment
 
-If you use cloudflare pages you can follow this guide https://github.com/i40west/netlify-cms-cloudflare-pages.
+Build the project and deploy the `.output/public` directory to any static hosting:
 
-If you use netlify it's actually easier, you will need to change in the file `astro.config.mjs` NetlifyCMS config `config.backend.name` to git-gateway. (See https://decapcms.org/docs/git-gateway-backend/#git-gateway-with-netlify for more info)
+- Netlify
+- Vercel
+- Cloudflare Pages
+- GitHub Pages
+- Any static file server
 
-### 👀 Want to learn more?
+## License
 
-Check out [Astro documentation](https://docs.astro.build) or jump into Astro [Discord server](https://astro.build/chat).
+MIT License - see [LICENSE](LICENSE) for details.
+
+## Author
+
+**Mustafa Zaki Assagaf**
+
+- Twitter: [@mustafasegf](https://twitter.com/mustafasegf)
+- GitHub: [@mustafasegf](https://github.com/mustafasegf)
