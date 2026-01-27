@@ -149,8 +149,13 @@ async function generateOgImages() {
       try {
         await page.waitForSelector("#waifu.waifu-active", { timeout: 10000 });
         // Extra wait for the model to fully render and animate
-        await page.waitForTimeout(3000);
+        await page.waitForTimeout(2000);
         console.log(`   Live2D loaded!`);
+        
+        // Move mouse to the left side so the model looks left
+        console.log(`   Moving mouse to make model look left...`);
+        await page.mouse.move(100, captureHeight / 2);
+        await page.waitForTimeout(1500);
       } catch {
         console.log(`   Live2D not loaded, continuing anyway...`);
         await page.waitForTimeout(1000);
