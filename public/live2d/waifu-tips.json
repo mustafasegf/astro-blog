@@ -1,0 +1,31 @@
+{
+  "mouseover": [
+    {
+      "selector": "#waifu-tool-quit",
+      "text": [
+        "Tutup"
+      ]
+    }
+  ],
+  "click": [],
+  "seasons": [],
+  "time": [],
+  "message": {
+    "default": [
+      "Haii~ follow twitter dong"
+    ],
+    "console": "",
+    "copy": "",
+    "visibilitychange": "",
+    "changeSuccess": "",
+    "changeFail": "",
+    "photo": "",
+    "goodbye": "Goodbye :D",
+    "hitokoto": "",
+    "welcome": "",
+    "referrer": "",
+    "hoverBody": [],
+    "tapBody": []
+  },
+  "models": []
+}

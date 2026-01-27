@@ -431,6 +431,11 @@ h6 {
   bottom: 27px !important;
 }
 
+#waifu.waifu-hidden {
+  display: block !important;
+  visibility: hidden !important;
+}
+
 #waifu-canvas {
   pointer-events: auto;
 }
@@ -458,9 +463,11 @@ h6 {
   margin-right: -30px !important;
 }
 
-#waifu-tips,
+/* Position toolbar on the left side */
 #waifu-tool {
-  display: none !important;
+  left: -10px !important;
+  right: auto !important;
+  pointer-events: auto;
 }
 
 /* Smaller on mobile */
